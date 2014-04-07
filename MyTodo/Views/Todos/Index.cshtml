@@ -40,13 +40,15 @@
 
 <div id="todo_outer">
     @foreach (var item in Model) {
-        <div class="todo_list_item">
-            <span class="todo_completed">
-                @Html.EditorFor(modelItem => item.Completed)
-            </span>
-            <span class="todo_message">
-                @Html.DisplayFor(modelItem => item.Message)
-            </span>
-        </div>
+        <li>
+            <div class="todo_list_item">
+                    <span class="todo_completed">
+                        @Html.EditorFor(modelItem => item.Completed)
+                    </span>
+                    <span class="todo_message">
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </span>                                    
+            </div>
+        </li>
     }
 </div>
