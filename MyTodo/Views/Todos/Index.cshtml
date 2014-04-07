@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MyTodo.Models.Todo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Completed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+<div id="todo_outer">
+    @foreach (var item in Model) {
+        <div class="todo_list_item">
+            <span class="todo_completed">
+                @Html.EditorFor(modelItem => item.Completed)
+            </span>
+            <span class="todo_message">
+                @Html.DisplayFor(modelItem => item.Message)
+            </span>
+        </div>
+    }
+</div>
