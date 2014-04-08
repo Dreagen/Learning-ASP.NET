@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<MyTodo.Models.Todo>
-
 @{
     ViewBag.Title = "Index";
 }
@@ -47,7 +46,11 @@
                     </span>
                     <span class="todo_message">
                         @Html.DisplayFor(modelItem => item.Message)
-                    </span>                                    
+                    </span> 
+            @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
+                @Html.AntiForgeryToken()
+                <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div> 
+            }                          
             </div>
         </li>
     }

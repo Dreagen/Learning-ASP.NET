@@ -89,31 +89,31 @@ namespace MyTodo.Controllers
             return View(todo);
         }
 
-        // GET: /Todos/Delete/5
-        public ActionResult Delete(int? id)
+        //POST /Todos/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Todo todo = db.Todos.Find(id);
-            if (todo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(todo);
-        }
-
-        // POST: /Todos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Todo todo = db.Todos.Find(id);
             db.Todos.Remove(todo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: /Todos/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Todo todo = db.Todos.Find(id);
+        //    db.Todos.Remove(todo);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
