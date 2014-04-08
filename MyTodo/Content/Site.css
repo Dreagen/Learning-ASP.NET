@@ -57,7 +57,16 @@ input[type="checkbox"].input-validation-error {
 .todo_message {
     float: left;
     line-height: 30px;
+    color: #333;
 }
+
+.todo_message_strike {
+    float: left;
+    line-height: 30px;
+    color: #AAA;
+    text-decoration: line-through;
+}
+
 
 .todo_list_item {
     width: 500px;
@@ -96,7 +105,13 @@ input[type="checkbox"].input-validation-error {
     content: '✖';
 }
 
-.label_1 {
-    width: 50px;
-    height: 20px;
+#todo_title {
+    text-align: center;
+    font-size: 22px;
+    color: #333;
+    background-color: #999;
+}
+
+.todo_list_item {
+    border-bottom: solid 1px #CCC;
 }

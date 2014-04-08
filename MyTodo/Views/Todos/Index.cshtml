@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <h2>Index</h2>
 
 <p>
@@ -37,21 +37,46 @@
 
     </table>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".todo_completed").click(function () {
+            if ($(this).next().css('text-decoration').match(/line-through*/)) {
+                $(this).next().css('text-decoration', 'none');
+                $(this).next().css('color', '#333');
+            }
+            else {
+                $(this).next().css('text-decoration', 'line-through');
+                $(this).next().css('color', '#AAA');
+            }
+        });
+    })
+
+</script>
 <div id="todo_outer">
+    <div id="todo_title">
+        Things To Do
+    </div>
     @foreach (var item in Model) {
         <li>
             <div class="todo_list_item">
-                    <span class="todo_completed">
+                @{
+                    var className="todo_message";
+                    if (item.Completed == true) {
+                        className = "todo_message_strike";
+                    }
+                }
+                    <div class="todo_completed">
                         @Html.EditorFor(modelItem => item.Completed)
-                    </span>
-                    <span class="todo_message">
-                        @Html.DisplayFor(modelItem => item.Message)
-                    </span> 
+                    </div>
+                    <div class="@className">
+                        @Html.DisplayFor(modelItem => item.Message, new { @class = "todo_message_strike" })
+                    </div>
             @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
                 @Html.AntiForgeryToken()
-                <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div> 
-            }                          
+                <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div>
+            }
             </div>
         </li>
+        
     }
 </div>
