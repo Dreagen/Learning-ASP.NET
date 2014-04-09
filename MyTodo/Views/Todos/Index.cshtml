@@ -52,12 +52,12 @@
     })
 
 </script>
+<div id="todo_title">
+    My Todos
+</div>
 <div id="todo_outer">
-    <div id="todo_title">
-        Things To Do
-    </div>
+
     @foreach (var item in Model) {
-        <li>
             <div class="todo_list_item">
                 @{
                     var className="todo_message";
@@ -71,12 +71,11 @@
                     <div class="@className">
                         @Html.DisplayFor(modelItem => item.Message, new { @class = "todo_message_strike" })
                     </div>
-            @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
-                @Html.AntiForgeryToken()
-                <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div>
-            }
+                @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
+                    @Html.AntiForgeryToken()
+                    <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div>
+                }
             </div>
-        </li>
         
     }
 </div>
