@@ -56,6 +56,7 @@
     My Todos
 </div>
 <div id="todo_outer">
+    <div id="todo_pane_top"></div>
 
     @foreach (var item in Model) {
             <div class="todo_list_item">
@@ -66,7 +67,7 @@
                     }
                 }
                     <div class="todo_completed">
-                        @Html.EditorFor(modelItem => item.Completed)
+                        @*@Html.EditorFor(modelItem => item.Completed)*@
                     </div>
                     <div class="@className">
                         @Html.DisplayFor(modelItem => item.Message, new { @class = "todo_message_strike" })
