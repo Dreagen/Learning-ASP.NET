@@ -106,6 +106,20 @@ namespace MyTodo.Controllers
             return RedirectToAction("Index");
         }
 
+        //POST /Todos/New/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult New(string message) {
+            if (message == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Todo todo = new Todo();
+            todo.Message = message;
+            db.Todos.Add(todo);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         //POST /Todos/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]

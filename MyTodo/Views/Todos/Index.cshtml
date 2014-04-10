@@ -57,6 +57,15 @@
 </div>
 <div id="todo_outer">
     <div id="todo_pane_top"></div>
+    <div id="new_item">
+        @using (Html.BeginForm("New", "Todos", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+
+
+            <input id="new_input" placeholder="What needs doing?" type="text" name="message">
+            <div id="add_new_button" onclick="$(this).closest('form').submit();"></div>
+        }
+    </div>
 
     @foreach (var item in Model) {
             <div class="todo_list_item">
