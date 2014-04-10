@@ -141,7 +141,7 @@ input[type="checkbox"].input-validation-error {
     border-bottom: solid 1px #ccc;
 }
 
-#new_input {
+#new_item input {
     border: none;
     padding: 10px;
     line-height: 28px;
@@ -149,6 +149,7 @@ input[type="checkbox"].input-validation-error {
     margin-left: 37px;
     font-style: italic;
     float: left;
+    max-width: 440px;
 }
 
 #add_new_button {
