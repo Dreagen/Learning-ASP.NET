@@ -66,15 +66,20 @@
                         className = "todo_message_strike";
                     }
                 }
-                    <div class="todo_completed">
-                        @*@Html.EditorFor(modelItem => item.Completed)*@
+                    <div>
+                        @using (Html.BeginForm("Completed", "Todos", new { item.ID }, FormMethod.Post, new { name = "complete" + item.ID })) {
+                            @Html.AntiForgeryToken()
+
+                            
+                            <div class="todo_completed" onclick="$(this).closest('form').submit();"></div>
+                        }
                     </div>
                     <div class="@className">
-                        @Html.DisplayFor(modelItem => item.Message, new { @class = "todo_message_strike" })
+                        @Html.DisplayFor(modelItem => item.Message)
                     </div>
                 @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
                     @Html.AntiForgeryToken()
-                    <div class="todo_delete" onclick="javascript:document.forms[0].submit()"></div>
+                    <div class="todo_delete" onclick="$(this).closest('form').submit();"></div>
                 }
             </div>
         

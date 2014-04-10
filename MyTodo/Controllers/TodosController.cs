@@ -89,6 +89,23 @@ namespace MyTodo.Controllers
             return View(todo);
         }
 
+        //POST /Todos/Completed/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Completed(int id) {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Todo todo = db.Todos.Find(id);
+            if (todo.Completed == true)
+                todo.Completed = false;
+            else
+                todo.Completed = true;
+            db.Entry(todo).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         //POST /Todos/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
