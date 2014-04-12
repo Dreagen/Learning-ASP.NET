@@ -49,6 +49,11 @@
                 $(this).next().css('color', '#AAA');
             }
         });
+
+        $(".message_outer").dblclick(function () {
+            $(this).closest('div').siblings('.message_outer_editor').css('display', 'block');
+            $(this).css('display', 'none');           
+        })
     })
 
 </script>
@@ -66,7 +71,9 @@
             <div id="add_new_button" onclick="$(this).closest('form').submit();"></div>
         }
     </div>
-
+    @{
+        var count = 0;
+    }
     @foreach (var item in Model) {
             <div class="todo_list_item">
                 @{
@@ -83,14 +90,28 @@
                             <div class="todo_completed" onclick="$(this).closest('form').submit();"></div>
                         }
                     </div>
-                    <div class="@className">
-                        @Html.DisplayFor(modelItem => item.Message)
+                <div class="message">
+                    <div class="message_outer">
+                        <div class="@className">
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </div>
                     </div>
+                    <div class="message_outer_editor">
+                        @using (Html.BeginForm("Edit", "Todos", new { item.ID }, FormMethod.Post)) {
+                            @Html.AntiForgeryToken()
+                            string message = item.Message;
+                            System.Diagnostics.Debug.Write("Message: " + message);
+                            <div class="message_editor">
+                                @Html.TextBoxFor(modelItem => item.Message, new { @Value = message, @Name = "message" })
+                            </div>
+                        }
+                        
+                    </div>
+                </div>
                 @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
                     @Html.AntiForgeryToken()
                     <div class="todo_delete" onclick="$(this).closest('form').submit();"></div>
                 }
             </div>
-        
-    }
+        }
 </div>

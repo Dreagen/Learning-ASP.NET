@@ -81,6 +81,13 @@ input[type="checkbox"].input-validation-error {
     color: #333;
 }
 
+.message_outer_editor {
+    float: left;
+    line-height: 30px;
+    color: #333;
+    display: none;
+}
+
 .todo_message_strike {
     float: left;
     line-height: 30px;
@@ -180,6 +187,13 @@ input[type="checkbox"].input-validation-error {
     color: #333;
     height: 50px;
     border-bottom: solid 1px #CCC;
+}
+
+.message_editor input {
+    width: 400px;
+    max-width: 400px;
+    height: 50px;
+    margin-top: -10px;
 }
 
 body {
