@@ -96,8 +96,8 @@
                             @Html.DisplayFor(modelItem => item.Message)
                         </div>
                     </div>
-                    <div class="message_outer_editor">
-                        @using (Html.BeginForm("Edit", "Todos", new { item.ID }, FormMethod.Post)) {
+                    <div id="message_outer_editor">
+                        @using (Ajax.BeginForm("Edit", "Todos", new { item.ID }, new AjaxOptions { UpdateTargetId="message_outer_editor" })) {
                             @Html.AntiForgeryToken()
                             string message = item.Message;
                             System.Diagnostics.Debug.Write("Message: " + message);

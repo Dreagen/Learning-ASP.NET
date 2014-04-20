@@ -78,17 +78,15 @@ namespace MyTodo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, string message)
+        public PartialViewResult Edit(int id, string message)
         {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Todo todo1 = db.Todos.Find(id);
             todo1.Message = message;
             System.Diagnostics.Debug.Write(message);
             db.Entry(todo1).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            db.En
+            return PartialView("Index", todo1);
         }
 
         //POST /Todos/Completed/5
