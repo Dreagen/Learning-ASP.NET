@@ -85,8 +85,8 @@ namespace MyTodo.Controllers
             System.Diagnostics.Debug.Write(message);
             db.Entry(todo1).State = EntityState.Modified;
             db.SaveChanges();
-            db.En
-            return PartialView("Index", todo1);
+            IEnumerable<MyTodo.Models.Todo> todos = db.Todos;
+            return PartialView("message_outer", todos);
         }
 
         //POST /Todos/Completed/5

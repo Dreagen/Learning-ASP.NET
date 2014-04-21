@@ -96,11 +96,12 @@
                             @Html.DisplayFor(modelItem => item.Message)
                         </div>
                     </div>
-                    <div id="message_outer_editor">
-                        @using (Ajax.BeginForm("Edit", "Todos", new { item.ID }, new AjaxOptions { UpdateTargetId="message_outer_editor" })) {
+                    <div class="message_outer_editor">
+                        @using (Ajax.BeginForm("Edit", "Todos", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "message_outer" })) {
                             @Html.AntiForgeryToken()
                             string message = item.Message;
                             System.Diagnostics.Debug.Write("Message: " + message);
+                            @Html.TextBoxFor(modelItem => item.ID, new { @Value = item.ID, @Name = "id", @Type = "hidden" })
                             <div class="message_editor">
                                 @Html.TextBoxFor(modelItem => item.Message, new { @Value = message, @Name = "message" })
                             </div>
