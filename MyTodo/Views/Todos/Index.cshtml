@@ -54,6 +54,14 @@
             $(this).closest('div').siblings('.message_outer_editor').css('display', 'block');
             $(this).css('display', 'none');           
         })
+
+        $(".message_editor :input").keypress(function (e) {
+            if (e.which === 13) {
+                $(this).closest('div').parent().parent().siblings('.message_outer').css('display', 'block');
+                $(this).parent().closest('div').css('display', 'none');
+                alert($(this).closest('div').attr('class'));
+            }
+        });
     })
 
 </script>
@@ -78,26 +86,27 @@
             <div class="todo_list_item">
                 @{
                     var className="todo_message";
+                    var id = item.ID;
                     if (item.Completed == true) {
                         className = "todo_message_strike";
                     }
                 }
                     <div>
-                        @using (Html.BeginForm("Completed", "Todos", new { item.ID }, FormMethod.Post, new { name = "complete" + item.ID })) {
+                        @using (Ajax.BeginForm("Completed", new AjaxOptions { HttpMethod = "POST" })) {
                             @Html.AntiForgeryToken()
 
-                            
+                            @Html.TextBoxFor(modelItem => item.ID, new { @Value = item.ID, @Name = "id", @Type = "hidden" })
                             <div class="todo_completed" onclick="$(this).closest('form').submit();"></div>
                         }
                     </div>
                 <div class="message">
                     <div class="message_outer">
-                        <div class="@className">
+                        <div class="@className" id="@id">
                             @Html.DisplayFor(modelItem => item.Message)
                         </div>
                     </div>
                     <div class="message_outer_editor">
-                        @using (Ajax.BeginForm("Edit", "Todos", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "message_outer" })) {
+                        @using (Ajax.BeginForm("Edit", "Todos", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "" + item.ID })) {
                             @Html.AntiForgeryToken()
                             string message = item.Message;
                             System.Diagnostics.Debug.Write("Message: " + message);
