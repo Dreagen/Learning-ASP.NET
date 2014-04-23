@@ -40,14 +40,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".todo_completed").click(function () {
-            if ($(this).next().css('text-decoration').match(/line-through*/)) {
-                $(this).next().css('text-decoration', 'none');
-                $(this).next().css('color', '#333');
-            }
-            else {
-                $(this).next().css('text-decoration', 'line-through');
-                $(this).next().css('color', '#AAA');
-            }
+            $(this).parent().nextAll('.message').children(':first').children(':first').toggleClass('todo_message todo_message_strike');
+            $(this).closest('form').submit();
         });
 
         $(".message_outer").dblclick(function () {
@@ -59,7 +53,6 @@
             if (e.which === 13) {
                 $(this).closest('div').parent().parent().siblings('.message_outer').css('display', 'block');
                 $(this).parent().closest('div').css('display', 'none');
-                alert($(this).closest('div').attr('class'));
             }
         });
     })
@@ -91,14 +84,12 @@
                         className = "todo_message_strike";
                     }
                 }
-                    <div>
                         @using (Ajax.BeginForm("Completed", new AjaxOptions { HttpMethod = "POST" })) {
                             @Html.AntiForgeryToken()
 
                             @Html.TextBoxFor(modelItem => item.ID, new { @Value = item.ID, @Name = "id", @Type = "hidden" })
-                            <div class="todo_completed" onclick="$(this).closest('form').submit();"></div>
+                            <div class="todo_completed"></div>
                         }
-                    </div>
                 <div class="message">
                     <div class="message_outer">
                         <div class="@className" id="@id">

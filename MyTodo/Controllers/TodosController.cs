@@ -96,7 +96,8 @@ namespace MyTodo.Controllers
             todo.Completed = (todo.Completed) ? false : true;
             db.Entry(todo).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Response.StatusCode = (int)HttpStatusCode.NoContent;
+            return new EmptyResult();
         }
 
         //POST /Todos/New/
