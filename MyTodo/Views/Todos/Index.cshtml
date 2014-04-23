@@ -3,39 +3,6 @@
     ViewBag.Title = "Index";
 }
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Message)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Completed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Message)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            </tr>
-        }
-
-    </table>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -55,6 +22,13 @@
                 $(this).parent().closest('div').css('display', 'none');
             }
         });
+
+        $(".todo_delete").click(function () {
+            $(this).closest('.todo_list_item').animate({ height: "0px", padding: "0px" }, 150, function() {
+                $(this).closest('.todo_list_item').css('display', 'none');
+            });
+            $(this).closest('form').submit();
+        })
     })
 
 </script>
@@ -109,9 +83,10 @@
                         
                     </div>
                 </div>
-                @using (Html.BeginForm("Delete", "Todos", new { item.ID }, FormMethod.Post)) {
+                @using (Ajax.BeginForm("Delete", new AjaxOptions { HttpMethod = "POST" })) {
                     @Html.AntiForgeryToken()
-                    <div class="todo_delete" onclick="$(this).closest('form').submit();"></div>
+                    @Html.TextBoxFor(modelItem => item.ID, new { @Value = item.ID, @Name = "id", @Type = "hidden" })
+                    <div class="todo_delete"></div>
                 }
             </div>
         }

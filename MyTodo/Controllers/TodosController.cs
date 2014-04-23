@@ -119,14 +119,11 @@ namespace MyTodo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Todo todo = db.Todos.Find(id);
             db.Todos.Remove(todo);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Response.StatusCode = (int)HttpStatusCode.NoContent;
+            return new EmptyResult();
         }
 
         // POST: /Todos/Delete/5
